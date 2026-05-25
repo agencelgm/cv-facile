@@ -146,6 +146,39 @@ export type Database = {
         }
         Relationships: []
       }
+      payments: {
+        Row: {
+          amount_fcfa: number
+          chariow_session_id: string | null
+          created_at: string
+          credits_purchased: number
+          id: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount_fcfa: number
+          chariow_session_id?: string | null
+          created_at?: string
+          credits_purchased: number
+          id?: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount_fcfa?: number
+          chariow_session_id?: string | null
+          created_at?: string
+          credits_purchased?: number
+          id?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_credits: {
         Row: {
           balance: number
@@ -238,6 +271,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      credit_payment: { Args: { _session_id: string }; Returns: undefined }
       debit_credits: {
         Args: { _amount: number; _description: string; _user_id: string }
         Returns: number
