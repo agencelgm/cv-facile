@@ -81,11 +81,14 @@ export const verifyOtp = createServerFn({ method: "POST" })
 
     if (rec.otp_code !== data.code) {
       const newAttempts = rec.attempts + 1;
-      const updates: Record<string, unknown> = { attempts: newAttempts };
-      if (newAttempts >= 3) {
-        updates.blocked_until = new Date(Date.now() + 30 * 60 * 1000).toISOString();
-      }
-      await supabaseAdmin.from("otp_verifications").update(updates).eq("id", rec.id);
+      const blocked_until =
+        newAttempts >= 3
+          ? new Date(Date.now() + 30 * 60 * 1000).toISOString()
+          : null;
+      await supabaseAdmin
+        .from("otp_verifications")
+        .update({ attempts: newAttempts, blocked_until })
+        .eq("id", rec.id);
       throw new Error(
         newAttempts >= 3
           ? "Trop de tentatives. Compte temporairement bloqué 30 min."
