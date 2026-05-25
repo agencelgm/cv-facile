@@ -1,8 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useRef, useState, type FormEvent } from "react";
-import { useServerFn } from "@tanstack/react-start";
+import { useState, type FormEvent } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { sendOtp, verifyOtp } from "@/lib/otp.functions";
 
 export const Route = createFileRoute("/inscription")({
   component: InscriptionPage,
@@ -20,9 +18,6 @@ const COUNTRIES = [
 ];
 
 function InscriptionPage() {
-  const [step, setStep] = useState<1 | 2>(1);
-  const [prenom, setPrenom] = useState("");
-  const [telephone, setTelephone] = useState("");
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <header className="border-b border-border bg-card">
@@ -33,24 +28,14 @@ function InscriptionPage() {
         </div>
       </header>
       <main className="flex flex-1 items-center justify-center px-6 py-12">
-        {step === 1 ? (
-          <Step1
-            onDone={(p, t) => {
-              setPrenom(p);
-              setTelephone(t);
-              setStep(2);
-            }}
-          />
-        ) : (
-          <Step2 prenom={prenom} telephone={telephone} />
-        )}
+        <Step1 />
       </main>
     </div>
   );
 }
 
-function Step1({ onDone }: { onDone: (prenom: string, tel: string) => void }) {
-  const sendOtpFn = useServerFn(sendOtp);
+function Step1() {
+  const navigate = useNavigate();
   const [prenom, setPrenom] = useState("");
   const [nom, setNom] = useState("");
   const [email, setEmail] = useState("");
@@ -80,21 +65,15 @@ function Step1({ onDone }: { onDone: (prenom: string, tel: string) => void }) {
       setError(signErr.message);
       return;
     }
-    try {
-      await sendOtpFn({ data: { prenom, telephone } });
-      onDone(prenom, telephone);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Erreur d'envoi du code.");
-    } finally {
-      setLoading(false);
-    }
+    // Mode test : on saute la vérification WhatsApp et on va directement au dashboard
+    setLoading(false);
+    navigate({ to: "/dashboard" });
   };
 
   return (
     <div className="w-full max-w-lg rounded-xl border border-border bg-card p-8 shadow-sm">
-      <Steps current={1} />
-      <h1 className="mt-6 text-2xl font-bold text-foreground">Créez votre compte</h1>
-      <p className="mt-1 text-sm text-muted-foreground">4 crédits offerts après vérification WhatsApp.</p>
+      <h1 className="text-2xl font-bold text-foreground">Créez votre compte</h1>
+      <p className="mt-1 text-sm text-muted-foreground">4 crédits offerts à l'inscription.</p>
       <form onSubmit={onSubmit} className="mt-6 space-y-4">
         <div className="grid grid-cols-2 gap-3">
           <Field label="Prénom" value={prenom} onChange={setPrenom} required />
@@ -142,7 +121,7 @@ function Step1({ onDone }: { onDone: (prenom: string, tel: string) => void }) {
           disabled={loading}
           className="w-full rounded-xl bg-primary py-3 font-semibold text-primary-foreground shadow-sm transition hover:opacity-90 disabled:opacity-60"
         >
-          {loading ? "Création…" : "Continuer"}
+          {loading ? "Création…" : "Créer mon compte"}
         </button>
       </form>
       <p className="mt-6 text-center text-sm text-muted-foreground">
