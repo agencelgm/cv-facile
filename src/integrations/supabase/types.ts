@@ -16,38 +16,65 @@ export type Database = {
     Tables: {
       applications: {
         Row: {
+          company_name: string | null
           created_at: string
+          credits_used: number
           cv_content: string | null
+          cv_generated: boolean
+          cv_pdf_url: string | null
           entreprise: string | null
           id: string
+          job_offer_text: string | null
+          job_title: string | null
           lettre_content: string | null
+          lm_generated: boolean
+          lm_pdf_url: string | null
           offre: string | null
           poste: string
           status: string
+          template_id: string
           updated_at: string
           user_id: string
         }
         Insert: {
+          company_name?: string | null
           created_at?: string
+          credits_used?: number
           cv_content?: string | null
+          cv_generated?: boolean
+          cv_pdf_url?: string | null
           entreprise?: string | null
           id?: string
+          job_offer_text?: string | null
+          job_title?: string | null
           lettre_content?: string | null
+          lm_generated?: boolean
+          lm_pdf_url?: string | null
           offre?: string | null
           poste: string
           status?: string
+          template_id?: string
           updated_at?: string
           user_id: string
         }
         Update: {
+          company_name?: string | null
           created_at?: string
+          credits_used?: number
           cv_content?: string | null
+          cv_generated?: boolean
+          cv_pdf_url?: string | null
           entreprise?: string | null
           id?: string
+          job_offer_text?: string | null
+          job_title?: string | null
           lettre_content?: string | null
+          lm_generated?: boolean
+          lm_pdf_url?: string | null
           offre?: string | null
           poste?: string
           status?: string
+          template_id?: string
           updated_at?: string
           user_id?: string
         }
@@ -211,7 +238,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      debit_credits: {
+        Args: { _amount: number; _description: string; _user_id: string }
+        Returns: number
+      }
     }
     Enums: {
       [_ in never]: never
