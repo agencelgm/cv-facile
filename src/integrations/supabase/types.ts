@@ -14,7 +14,132 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      credit_transactions: {
+        Row: {
+          amount: number
+          balance_after: number
+          created_at: string
+          description: string | null
+          id: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          balance_after: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          type: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          balance_after?: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      otp_verifications: {
+        Row: {
+          attempts: number
+          blocked_until: string | null
+          created_at: string
+          expires_at: string
+          id: string
+          otp_code: string
+          telephone: string
+          user_id: string
+          verified: boolean
+        }
+        Insert: {
+          attempts?: number
+          blocked_until?: string | null
+          created_at?: string
+          expires_at: string
+          id?: string
+          otp_code: string
+          telephone: string
+          user_id: string
+          verified?: boolean
+        }
+        Update: {
+          attempts?: number
+          blocked_until?: string | null
+          created_at?: string
+          expires_at?: string
+          id?: string
+          otp_code?: string
+          telephone?: string
+          user_id?: string
+          verified?: boolean
+        }
+        Relationships: []
+      }
+      user_credits: {
+        Row: {
+          balance: number
+          created_at: string
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          balance?: number
+          created_at?: string
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          balance?: number
+          created_at?: string
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_profiles: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          nom: string
+          prenom: string
+          telephone: string
+          updated_at: string
+          user_id: string
+          whatsapp_verified: boolean
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          nom: string
+          prenom: string
+          telephone: string
+          updated_at?: string
+          user_id: string
+          whatsapp_verified?: boolean
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          nom?: string
+          prenom?: string
+          telephone?: string
+          updated_at?: string
+          user_id?: string
+          whatsapp_verified?: boolean
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
