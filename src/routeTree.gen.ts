@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ProfilRouteImport } from './routes/profil'
 import { Route as NouvelleCandidatureRouteImport } from './routes/nouvelle-candidature'
 import { Route as InscriptionRouteImport } from './routes/inscription'
 import { Route as DashboardRouteImport } from './routes/dashboard'
@@ -16,6 +17,11 @@ import { Route as CreditsRouteImport } from './routes/credits'
 import { Route as ConnexionRouteImport } from './routes/connexion'
 import { Route as IndexRouteImport } from './routes/index'
 
+const ProfilRoute = ProfilRouteImport.update({
+  id: '/profil',
+  path: '/profil',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NouvelleCandidatureRoute = NouvelleCandidatureRouteImport.update({
   id: '/nouvelle-candidature',
   path: '/nouvelle-candidature',
@@ -54,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/inscription': typeof InscriptionRoute
   '/nouvelle-candidature': typeof NouvelleCandidatureRoute
+  '/profil': typeof ProfilRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/inscription': typeof InscriptionRoute
   '/nouvelle-candidature': typeof NouvelleCandidatureRoute
+  '/profil': typeof ProfilRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,6 +79,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/inscription': typeof InscriptionRoute
   '/nouvelle-candidature': typeof NouvelleCandidatureRoute
+  '/profil': typeof ProfilRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -81,6 +90,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/inscription'
     | '/nouvelle-candidature'
+    | '/profil'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -89,6 +99,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/inscription'
     | '/nouvelle-candidature'
+    | '/profil'
   id:
     | '__root__'
     | '/'
@@ -97,6 +108,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/inscription'
     | '/nouvelle-candidature'
+    | '/profil'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -106,10 +118,18 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   InscriptionRoute: typeof InscriptionRoute
   NouvelleCandidatureRoute: typeof NouvelleCandidatureRoute
+  ProfilRoute: typeof ProfilRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/profil': {
+      id: '/profil'
+      path: '/profil'
+      fullPath: '/profil'
+      preLoaderRoute: typeof ProfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/nouvelle-candidature': {
       id: '/nouvelle-candidature'
       path: '/nouvelle-candidature'
@@ -162,6 +182,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   InscriptionRoute: InscriptionRoute,
   NouvelleCandidatureRoute: NouvelleCandidatureRoute,
+  ProfilRoute: ProfilRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
