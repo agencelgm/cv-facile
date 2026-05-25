@@ -80,13 +80,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Collez l'offre d'emploi, notre IA génère votre CV et votre lettre de motivation en 60 secondes.",
       },
       { name: "author", content: "CVFacile" },
-      { property: "og:title", content: "CVFacile" },
+      { property: "og:title", content: "CVFacile — Créez un CV adapté à chaque offre d'emploi" },
       {
         property: "og:description",
         content: "CV et lettres de motivation sur mesure générés par IA.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "CVFacile — Créez un CV adapté à chaque offre d'emploi" },
+      { name: "description", content: "CVFacile helps you create tailored CVs and cover letters for job applications." },
+      { property: "og:description", content: "CVFacile helps you create tailored CVs and cover letters for job applications." },
+      { name: "twitter:description", content: "CVFacile helps you create tailored CVs and cover letters for job applications." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b04641b2-74e5-434f-805c-1e2357b9e661/id-preview-52751e10--18cb219d-4f30-4b20-9f8a-6b5dfb0093b4.lovable.app-1779743146824.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b04641b2-74e5-434f-805c-1e2357b9e661/id-preview-52751e10--18cb219d-4f30-4b20-9f8a-6b5dfb0093b4.lovable.app-1779743146824.png" },
     ],
     links: [
       {
