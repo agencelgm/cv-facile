@@ -9,11 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as NouvelleCandidatureRouteImport } from './routes/nouvelle-candidature'
 import { Route as InscriptionRouteImport } from './routes/inscription'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as CreditsRouteImport } from './routes/credits'
 import { Route as ConnexionRouteImport } from './routes/connexion'
 import { Route as IndexRouteImport } from './routes/index'
 
+const NouvelleCandidatureRoute = NouvelleCandidatureRouteImport.update({
+  id: '/nouvelle-candidature',
+  path: '/nouvelle-candidature',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InscriptionRoute = InscriptionRouteImport.update({
   id: '/inscription',
   path: '/inscription',
@@ -22,6 +29,11 @@ const InscriptionRoute = InscriptionRouteImport.update({
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreditsRoute = CreditsRouteImport.update({
+  id: '/credits',
+  path: '/credits',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConnexionRoute = ConnexionRouteImport.update({
@@ -38,39 +50,73 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/connexion': typeof ConnexionRoute
+  '/credits': typeof CreditsRoute
   '/dashboard': typeof DashboardRoute
   '/inscription': typeof InscriptionRoute
+  '/nouvelle-candidature': typeof NouvelleCandidatureRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/connexion': typeof ConnexionRoute
+  '/credits': typeof CreditsRoute
   '/dashboard': typeof DashboardRoute
   '/inscription': typeof InscriptionRoute
+  '/nouvelle-candidature': typeof NouvelleCandidatureRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/connexion': typeof ConnexionRoute
+  '/credits': typeof CreditsRoute
   '/dashboard': typeof DashboardRoute
   '/inscription': typeof InscriptionRoute
+  '/nouvelle-candidature': typeof NouvelleCandidatureRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/connexion' | '/dashboard' | '/inscription'
+  fullPaths:
+    | '/'
+    | '/connexion'
+    | '/credits'
+    | '/dashboard'
+    | '/inscription'
+    | '/nouvelle-candidature'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/connexion' | '/dashboard' | '/inscription'
-  id: '__root__' | '/' | '/connexion' | '/dashboard' | '/inscription'
+  to:
+    | '/'
+    | '/connexion'
+    | '/credits'
+    | '/dashboard'
+    | '/inscription'
+    | '/nouvelle-candidature'
+  id:
+    | '__root__'
+    | '/'
+    | '/connexion'
+    | '/credits'
+    | '/dashboard'
+    | '/inscription'
+    | '/nouvelle-candidature'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConnexionRoute: typeof ConnexionRoute
+  CreditsRoute: typeof CreditsRoute
   DashboardRoute: typeof DashboardRoute
   InscriptionRoute: typeof InscriptionRoute
+  NouvelleCandidatureRoute: typeof NouvelleCandidatureRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/nouvelle-candidature': {
+      id: '/nouvelle-candidature'
+      path: '/nouvelle-candidature'
+      fullPath: '/nouvelle-candidature'
+      preLoaderRoute: typeof NouvelleCandidatureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/inscription': {
       id: '/inscription'
       path: '/inscription'
@@ -83,6 +129,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/credits': {
+      id: '/credits'
+      path: '/credits'
+      fullPath: '/credits'
+      preLoaderRoute: typeof CreditsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/connexion': {
@@ -105,9 +158,21 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConnexionRoute: ConnexionRoute,
+  CreditsRoute: CreditsRoute,
   DashboardRoute: DashboardRoute,
   InscriptionRoute: InscriptionRoute,
+  NouvelleCandidatureRoute: NouvelleCandidatureRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
