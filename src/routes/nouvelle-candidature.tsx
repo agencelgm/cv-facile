@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactElement } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 import {
@@ -494,7 +494,7 @@ function Step3Template({
   credits: number; cost: number; insufficient: boolean;
   onBack: () => void; onGenerate: () => void; generating: boolean;
 }) {
-  const tmpls: { id: Template; label: string; desc: string; preview: JSX.Element }[] = [
+  const tmpls: { id: Template; label: string; desc: string; preview: ReactElement }[] = [
     { id: "classique", label: "Classique", desc: "Sobre, photo ronde centrée", preview: <PreviewClassique /> },
     { id: "moderne", label: "Moderne", desc: "Sidebar bleue", preview: <PreviewModerne /> },
     { id: "professionnel", label: "Professionnel", desc: "En-tête sombre + 2 colonnes", preview: <PreviewPro /> },
