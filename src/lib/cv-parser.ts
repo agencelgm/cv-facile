@@ -21,9 +21,10 @@ async function parsePdf(file: File): Promise<ParsedCv> {
   // Dynamic import: pdfjs-dist is heavy.
   const pdfjs = await import("pdfjs-dist");
   // Use worker bundled by Vite as a URL
-  // @ts-expect-error - vite ?url import handled at runtime
-  const workerUrl = (await import("pdfjs-dist/build/pdf.worker.min.mjs?url")).default;
-  pdfjs.GlobalWorkerOptions.workerSrc = workerUrl;
+  const workerMod = (await import(
+    /* @vite-ignore */ "pdfjs-dist/build/pdf.worker.min.mjs?url"
+  )) as { default: string };
+  pdfjs.GlobalWorkerOptions.workerSrc = workerMod.default;
 
   const buf = await file.arrayBuffer();
   const doc = await pdfjs.getDocument({ data: buf }).promise;
@@ -33,8 +34,10 @@ async function parsePdf(file: File): Promise<ParsedCv> {
     const content = await page.getTextContent();
     out +=
       content.items
-        // @ts-expect-error - pdfjs item shape
-        .map((it) => ("str" in it ? it.str : ""))
+        .map((it) => {
+          const item = it as { str?: string };
+          return item.str ?? "";
+        })
         .join(" ") + "\n";
   }
   return { text: out.trim() };
