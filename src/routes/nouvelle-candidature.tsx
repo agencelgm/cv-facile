@@ -7,6 +7,7 @@ import {
   Download, RotateCcw, AlertTriangle, User as UserIcon,
 } from "lucide-react";
 import { DashboardLayout } from "@/components/dashboard-layout";
+import { OutOfCreditsModal } from "@/components/out-of-credits-modal";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { parseCvFile } from "@/lib/cv-parser";
@@ -146,6 +147,7 @@ function NouvelleCandidaturePage() {
           />
         )}
       </div>
+      <OutOfCreditsModal open={showCreditsModal} onClose={() => setShowCreditsModal(false)} />
     </DashboardLayout>
   );
 }
