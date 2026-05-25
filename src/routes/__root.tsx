@@ -72,14 +72,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "CVFacile — Créez un CV adapté à chaque offre d'emploi" },
+      {
+        name: "description",
+        content:
+          "Collez l'offre d'emploi, notre IA génère votre CV et votre lettre de motivation en 60 secondes.",
+      },
+      { name: "author", content: "CVFacile" },
+      { property: "og:title", content: "CVFacile" },
+      {
+        property: "og:description",
+        content: "CV et lettres de motivation sur mesure générés par IA.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
