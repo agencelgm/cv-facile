@@ -493,12 +493,13 @@ function Step2Offer({
 /* ============ Step 3: Template + options ============ */
 function Step3Template({
   template, setTemplate, docType, setDocType,
-  credits, cost, insufficient, onBack, onGenerate, generating,
+  credits, cost, insufficient, onBack, onGenerate, generating, onOpenCreditsModal,
 }: {
   template: Template; setTemplate: (t: Template) => void;
   docType: DocType; setDocType: (d: DocType) => void;
   credits: number; cost: number; insufficient: boolean;
   onBack: () => void; onGenerate: () => void; generating: boolean;
+  onOpenCreditsModal: () => void;
 }) {
   const tmpls: { id: Template; label: string; desc: string; preview: ReactElement }[] = [
     { id: "classique", label: "Classique", desc: "Sobre, photo ronde centrée", preview: <PreviewClassique /> },
@@ -558,9 +559,9 @@ function Step3Template({
               <p className="font-semibold">Solde insuffisant</p>
               <p className="text-xs">Il vous faut {cost} crédit{cost > 1 ? "s" : ""} pour générer cette candidature.</p>
             </div>
-            <Link to="/credits" className="rounded-lg bg-destructive px-3 py-1.5 text-xs font-semibold text-destructive-foreground">
+            <button onClick={onOpenCreditsModal} className="rounded-lg bg-destructive px-3 py-1.5 text-xs font-semibold text-destructive-foreground">
               Acheter des crédits
-            </Link>
+            </button>
           </div>
         )}
       </div>
@@ -570,7 +571,7 @@ function Step3Template({
           <ArrowLeft className="h-4 w-4" /> Retour
         </button>
         <button
-          onClick={onGenerate} disabled={insufficient || generating}
+          onClick={onGenerate} disabled={generating}
           className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm hover:opacity-90 disabled:opacity-50"
         >
           {generating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
