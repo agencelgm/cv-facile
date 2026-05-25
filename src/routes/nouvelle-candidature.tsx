@@ -39,6 +39,7 @@ function NouvelleCandidaturePage() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [profileReady, setProfileReady] = useState(false);
   const [credits, setCredits] = useState(0);
+  const [showCreditsModal, setShowCreditsModal] = useState(false);
 
   const [jobOffer, setJobOffer] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -117,12 +118,17 @@ function NouvelleCandidaturePage() {
             onBack={() => setStep(2)}
             onGenerate={async () => {
               if (!profile) return;
+              if (insufficient) {
+                setShowCreditsModal(true);
+                return;
+              }
               await runGeneration({
                 profile, jobOffer, companyName, template, docType,
                 setStep, setGenerating, setProgressMsg, setResult, setCredits, user,
               });
             }}
             generating={generating}
+            onOpenCreditsModal={() => setShowCreditsModal(true)}
           />
         )}
 
