@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProfilRouteImport } from './routes/profil'
+import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as NouvelleCandidatureRouteImport } from './routes/nouvelle-candidature'
 import { Route as InscriptionRouteImport } from './routes/inscription'
 import { Route as DashboardRouteImport } from './routes/dashboard'
@@ -21,6 +22,11 @@ import { Route as ApiPublicChariowWebhookRouteImport } from './routes/api/public
 const ProfilRoute = ProfilRouteImport.update({
   id: '/profil',
   path: '/profil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingRoute = OnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NouvelleCandidatureRoute = NouvelleCandidatureRouteImport.update({
@@ -66,6 +72,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/inscription': typeof InscriptionRoute
   '/nouvelle-candidature': typeof NouvelleCandidatureRoute
+  '/onboarding': typeof OnboardingRoute
   '/profil': typeof ProfilRoute
   '/api/public/chariow-webhook': typeof ApiPublicChariowWebhookRoute
 }
@@ -76,6 +83,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/inscription': typeof InscriptionRoute
   '/nouvelle-candidature': typeof NouvelleCandidatureRoute
+  '/onboarding': typeof OnboardingRoute
   '/profil': typeof ProfilRoute
   '/api/public/chariow-webhook': typeof ApiPublicChariowWebhookRoute
 }
@@ -87,6 +95,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/inscription': typeof InscriptionRoute
   '/nouvelle-candidature': typeof NouvelleCandidatureRoute
+  '/onboarding': typeof OnboardingRoute
   '/profil': typeof ProfilRoute
   '/api/public/chariow-webhook': typeof ApiPublicChariowWebhookRoute
 }
@@ -99,6 +108,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/inscription'
     | '/nouvelle-candidature'
+    | '/onboarding'
     | '/profil'
     | '/api/public/chariow-webhook'
   fileRoutesByTo: FileRoutesByTo
@@ -109,6 +119,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/inscription'
     | '/nouvelle-candidature'
+    | '/onboarding'
     | '/profil'
     | '/api/public/chariow-webhook'
   id:
@@ -119,6 +130,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/inscription'
     | '/nouvelle-candidature'
+    | '/onboarding'
     | '/profil'
     | '/api/public/chariow-webhook'
   fileRoutesById: FileRoutesById
@@ -130,6 +142,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   InscriptionRoute: typeof InscriptionRoute
   NouvelleCandidatureRoute: typeof NouvelleCandidatureRoute
+  OnboardingRoute: typeof OnboardingRoute
   ProfilRoute: typeof ProfilRoute
   ApiPublicChariowWebhookRoute: typeof ApiPublicChariowWebhookRoute
 }
@@ -141,6 +154,13 @@ declare module '@tanstack/react-router' {
       path: '/profil'
       fullPath: '/profil'
       preLoaderRoute: typeof ProfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/nouvelle-candidature': {
@@ -202,6 +222,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   InscriptionRoute: InscriptionRoute,
   NouvelleCandidatureRoute: NouvelleCandidatureRoute,
+  OnboardingRoute: OnboardingRoute,
   ProfilRoute: ProfilRoute,
   ApiPublicChariowWebhookRoute: ApiPublicChariowWebhookRoute,
 }

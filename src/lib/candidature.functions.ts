@@ -76,7 +76,7 @@ const GenSchema = z.object({
   profile: ProfileSchema,
   jobOffer: z.string().min(100).max(20_000),
   companyName: z.string().max(200).optional().default(""),
-  template: z.enum(["classique", "moderne", "professionnel"]),
+  template: z.enum(["classique", "marine", "moderne", "professionnel"]),
   docType: z.enum(["cv", "lm", "cv_lm"]),
 });
 

@@ -411,10 +411,11 @@ function AIScreen({
    Screen 2 – Editor + Live Preview
 ══════════════════════════════════════════════════════════ */
 
-const TEMPLATES: { id: Template; label: string }[] = [
-  { id: "classique", label: "Classique" },
-  { id: "moderne", label: "Moderne" },
-  { id: "professionnel", label: "Professionnel" },
+const TEMPLATES: { id: Template; label: string; desc: string }[] = [
+  { id: "classique", label: "Classique", desc: "Sidebar bleue" },
+  { id: "marine", label: "Marine", desc: "Header sombre" },
+  { id: "moderne", label: "Moderne", desc: "Header teal" },
+  { id: "professionnel", label: "Professionnel", desc: "Sidebar sombre" },
 ];
 
 function EditorScreen({
@@ -450,6 +451,7 @@ function EditorScreen({
                   ? "bg-card text-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground"
               }`}
+              title={t.desc}
             >
               {t.label}
             </button>

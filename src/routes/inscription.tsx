@@ -65,9 +65,8 @@ function Step1() {
       setError(signErr.message);
       return;
     }
-    // Mode test : on saute la vérification WhatsApp et on va directement au dashboard
     setLoading(false);
-    navigate({ to: "/dashboard" });
+    navigate({ to: "/onboarding" });
   };
 
   return (

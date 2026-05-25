@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { FileText, Plus, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -19,19 +19,23 @@ type Application = {
 
 function DashboardPage() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [apps, setApps] = useState<Application[] | null>(null);
 
   useEffect(() => {
     if (!user) return;
     (async () => {
-      const { data } = await supabase
-        .from("applications")
-        .select("id,poste,entreprise,status,created_at")
-        .eq("user_id", user.id)
-        .order("created_at", { ascending: false });
-      setApps((data as Application[]) ?? []);
+      const [{ data: profile }, { data: appData }] = await Promise.all([
+        supabase.from("user_profiles").select("onboarding_completed").eq("user_id", user.id).maybeSingle(),
+        supabase.from("applications").select("id,poste,entreprise,status,created_at").eq("user_id", user.id).order("created_at", { ascending: false }),
+      ]);
+      if (profile && !profile.onboarding_completed) {
+        navigate({ to: "/onboarding" });
+        return;
+      }
+      setApps((appData as Application[]) ?? []);
     })();
-  }, [user]);
+  }, [user, navigate]);
 
   return (
     <DashboardLayout>

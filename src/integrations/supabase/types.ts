@@ -213,6 +213,7 @@ export type Database = {
           id: string
           langues: string[]
           nom: string
+          onboarding_completed: boolean
           pays: string | null
           photo_url: string | null
           prenom: string
@@ -233,6 +234,7 @@ export type Database = {
           id?: string
           langues?: string[]
           nom: string
+          onboarding_completed?: boolean
           pays?: string | null
           photo_url?: string | null
           prenom: string
@@ -253,6 +255,7 @@ export type Database = {
           id?: string
           langues?: string[]
           nom?: string
+          onboarding_completed?: boolean
           pays?: string | null
           photo_url?: string | null
           prenom?: string
