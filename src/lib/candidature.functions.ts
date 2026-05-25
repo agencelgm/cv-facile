@@ -104,7 +104,8 @@ export const generateCandidatureContent = createServerFn({ method: "POST" })
     const wantCv = data.docType === "cv" || data.docType === "cv_lm";
     const wantLm = data.docType === "lm" || data.docType === "cv_lm";
 
-    let cvData: Record<string, unknown> | null = null;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let cvData: any = null;
     let lmText: string | null = null;
 
     try {
