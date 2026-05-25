@@ -14,6 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      applications: {
+        Row: {
+          created_at: string
+          cv_content: string | null
+          entreprise: string | null
+          id: string
+          lettre_content: string | null
+          offre: string | null
+          poste: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          cv_content?: string | null
+          entreprise?: string | null
+          id?: string
+          lettre_content?: string | null
+          offre?: string | null
+          poste: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          cv_content?: string | null
+          entreprise?: string | null
+          id?: string
+          lettre_content?: string | null
+          offre?: string | null
+          poste?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       credit_transactions: {
         Row: {
           amount: number
@@ -106,36 +145,63 @@ export type Database = {
       }
       user_profiles: {
         Row: {
+          competences: string[]
           created_at: string
           email: string
+          experiences: Json
+          formations: Json
           id: string
+          langues: string[]
           nom: string
+          pays: string | null
+          photo_url: string | null
           prenom: string
+          resume: string | null
           telephone: string
+          titre_professionnel: string | null
           updated_at: string
           user_id: string
+          ville: string | null
           whatsapp_verified: boolean
         }
         Insert: {
+          competences?: string[]
           created_at?: string
           email: string
+          experiences?: Json
+          formations?: Json
           id?: string
+          langues?: string[]
           nom: string
+          pays?: string | null
+          photo_url?: string | null
           prenom: string
+          resume?: string | null
           telephone: string
+          titre_professionnel?: string | null
           updated_at?: string
           user_id: string
+          ville?: string | null
           whatsapp_verified?: boolean
         }
         Update: {
+          competences?: string[]
           created_at?: string
           email?: string
+          experiences?: Json
+          formations?: Json
           id?: string
+          langues?: string[]
           nom?: string
+          pays?: string | null
+          photo_url?: string | null
           prenom?: string
+          resume?: string | null
           telephone?: string
+          titre_professionnel?: string | null
           updated_at?: string
           user_id?: string
+          ville?: string | null
           whatsapp_verified?: boolean
         }
         Relationships: []
