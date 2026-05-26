@@ -111,6 +111,8 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+  --hero-bg-from: oklch(0.13 0.05 265);
+  --hero-bg-to: oklch(0.09 0.03 255);
 }
 
 .dark {
@@ -162,4 +164,70 @@
     font-family: var(--font-display);
     letter-spacing: -0.02em;
   }
+}
+
+@keyframes orb-float-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(40px, -30px) scale(1.08); }
+  66%       { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+@keyframes orb-float-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40%       { transform: translate(-50px, 25px) scale(1.1); }
+  70%       { transform: translate(30px, -15px) scale(0.92); }
+}
+
+@keyframes orb-float-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(20px, 40px) scale(1.05); }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@layer utilities {
+  .text-gradient-animated {
+    background: linear-gradient(
+      135deg,
+      oklch(0.75 0.18 256),
+      oklch(0.80 0.15 210),
+      oklch(0.72 0.20 280),
+      oklch(0.78 0.17 256)
+    );
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-shift 5s ease infinite;
+  }
+
+  .hero-gradient {
+    background: linear-gradient(
+      145deg,
+      oklch(0.13 0.05 265) 0%,
+      oklch(0.11 0.04 258) 50%,
+      oklch(0.09 0.03 248) 100%
+    );
+  }
+
+  .animate-orb-1 { animation: orb-float-1 12s ease-in-out infinite; }
+  .animate-orb-2 { animation: orb-float-2 16s ease-in-out infinite; }
+  .animate-orb-3 { animation: orb-float-3 10s ease-in-out infinite; }
+  .animate-fade-up   { animation: fade-up 0.7s ease-out both; }
+  .animate-fade-up-1 { animation: fade-up 0.7s ease-out 0.15s both; }
+  .animate-fade-up-2 { animation: fade-up 0.7s ease-out 0.30s both; }
+  .animate-fade-up-3 { animation: fade-up 0.7s ease-out 0.45s both; }
 }
